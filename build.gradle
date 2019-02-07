@@ -1,0 +1,14 @@
+plugins {
+    id 'com.github.blindpirate.gogradle' version '0.11.2'
+}
+
+golang {
+    packagePath = 'src/dexter' // go import path of project to be built, NOT local file system path!
+}
+
+
+dependencies {
+    golang {
+        build(['name':'github.com/gorilla/mux'])
+    }
+}

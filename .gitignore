@@ -1,1 +1,9 @@
 .DS_Store
+.gogradle/
+.idea
+dexter.iml
+gradle/
+.gradle/
+bin/
+vendor/
+
