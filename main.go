@@ -14,10 +14,6 @@ func main() {
 	router := mux.NewRouter()
 
 	//add routes
-	router.HandleFunc("/api/v1/getconf", controllers.NewConfigApi().GetConfig).Methods("GET")
+	router.HandleFunc("/api/v1/conf/{type}/{id}", controllers.NewConfigApi().GetConfig).Methods("GET")
 	http.ListenAndServe(":8080", router)
-}
-
-func getConfig() {
-
 }
