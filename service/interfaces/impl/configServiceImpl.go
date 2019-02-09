@@ -1,9 +1,10 @@
 package impl
 
 import (
-	"dexter/dao/interfaces"
-	"dexter/dao/interfaces/impl"
 	"fmt"
+
+	"github.com/praveenk007/dexter/dao/interfaces"
+	"github.com/praveenk007/dexter/dao/interfaces/impl"
 )
 
 type ConfigServiceImpl struct {

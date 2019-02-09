@@ -3,9 +3,12 @@ plugins {
 }
 
 golang {
-    packagePath = 'src/dexter'
+    packagePath = 'github.com/praveenk007/dexter'
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
 
 dependencies {
     golang {

@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"dexter/service/interfaces"
-	"dexter/service/interfaces/impl"
 	"fmt"
 	"net/http"
+
+	"github.com/praveenk007/dexter/service/interfaces"
+	"github.com/praveenk007/dexter/service/interfaces/impl"
 
 	"github.com/gorilla/mux"
 )

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"dexter/controllers"
 	"fmt"
 	"net/http"
+
+	"github.com/praveenk007/dexter/controllers"
 
 	"github.com/gorilla/mux"
 )
