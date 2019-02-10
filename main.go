@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/spf13/viper"
+
 	"github.com/praveenk007/dexter/dao"
 
 	"github.com/praveenk007/dexter/controllers"
@@ -13,15 +15,39 @@ import (
 
 func main() {
 	fmt.Println("Starting app ...")
-	session, error := dao.NewSession("localhost:27017")
+	bindEnvVariables()
+	session, error := dao.NewSession("mongodb://localhost:27017")
 	if error != nil {
+		fmt.Println(error)
 		fmt.Errorf("Error occurred when conn to db %s", error)
 	}
+	fmt.Println("Connected to mongo server")
+	env := viper.GetString("ENV")
+	initConfig(env)
+	fmt.Println("Initialized configuration for environment " + env)
 
 	//init router
 	router := mux.NewRouter()
 
 	//add routes
 	router.HandleFunc("/api/v1/conf/{type}/{id}", controllers.NewConfigApi(session).GetConfig).Methods("GET")
-	http.ListenAndServe(":8080", router)
+	http.ListenAndServe(":4000", router)
+}
+
+func bindEnvVariables() {
+	viper.BindEnv("ENV")
+}
+
+func initConfig(env string) {
+	viper.SetConfigType("yaml")
+	switch environment := env; environment {
+	case "PROD":
+		viper.SetConfigName("prod")
+	case "DEV":
+	default:
+		viper.SetConfigName("local")
+	}
+
+	viper.AddConfigPath("configs/")
+	viper.ReadInConfig()
 }
