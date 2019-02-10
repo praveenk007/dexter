@@ -1,1 +1,1 @@
-Simple config service.
+Config service.
