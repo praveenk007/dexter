@@ -5,3 +5,4 @@ RUN go install dexter
 ENTRYPOINT /go/bin/dexter
 EXPOSE 8080
 
+

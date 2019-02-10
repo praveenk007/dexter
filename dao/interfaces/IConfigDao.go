@@ -1,5 +1,7 @@
 package interfaces
 
+import "github.com/praveenk007/dexter/dao"
+
 type IConfigDao interface {
-	GetConfig(id string)
+	GetConfig(s *dao.Session, id string)
 }

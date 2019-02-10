@@ -2,13 +2,15 @@ package impl
 
 import (
 	"fmt"
+
+	"github.com/praveenk007/dexter/dao"
 )
 
 type BrokerConfigDao struct {
-	//interfaces.IConfigDao
+	//session *dao.Session
 }
 
-func (s *BrokerConfigDao) GetConfig(id string) {
+func (s *BrokerConfigDao) GetConfig(sess *dao.Session, id string) {
 	fmt.Println("[GetConfig]")
-	NewAbstractDao().FetchById(id)
+	NewAbstractDao(sess).FetchById(id)
 }

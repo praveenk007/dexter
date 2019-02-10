@@ -3,21 +3,24 @@ package impl
 import (
 	"fmt"
 
+	"github.com/praveenk007/dexter/dao"
+
 	"github.com/praveenk007/dexter/dao/interfaces"
 	"github.com/praveenk007/dexter/dao/interfaces/impl"
 )
 
 type ConfigServiceImpl struct {
+	session *dao.Session
 }
 
-func NewConfigService() *ConfigServiceImpl {
-	return &ConfigServiceImpl{}
+func NewConfigService(session *dao.Session) *ConfigServiceImpl {
+	return &ConfigServiceImpl{session}
 }
 
 func (cs *ConfigServiceImpl) GetConfig(id string, ctype string) {
 	fmt.Println("[getBrokerConfig]")
 	a := getDao(ctype)
-	getConfig(a)
+	getConfig(a, cs.session)
 
 }
 
@@ -28,6 +31,6 @@ func getDao(ctype string) interfaces.IConfigDao {
 	return nil
 }
 
-func getConfig(configDao interfaces.IConfigDao) {
-	configDao.GetConfig("broker_id")
+func getConfig(configDao interfaces.IConfigDao, session *dao.Session) {
+	configDao.GetConfig(session, "broker_id")
 }
