@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/spf13/viper"
 
@@ -23,6 +24,7 @@ func main() {
 	}
 	fmt.Println("Connected to mongo server")
 	env := viper.GetString("ENV")
+
 	initConfig(env)
 	fmt.Println("Initialized configuration for environment " + env)
 
@@ -31,7 +33,7 @@ func main() {
 
 	//add routes
 	router.HandleFunc("/api/v1/conf/{type}/{id}", controllers.NewConfigApi(session).GetConfig).Methods("GET")
-	http.ListenAndServe(":4000", router)
+	http.ListenAndServe(":"+strconv.Itoa(viper.GetInt("PORT")), router)
 }
 
 func bindEnvVariables() {
@@ -44,6 +46,7 @@ func initConfig(env string) {
 	case "PROD":
 		viper.SetConfigName("prod")
 	case "DEV":
+		viper.SetConfigName("local")
 	default:
 		viper.SetConfigName("local")
 	}
