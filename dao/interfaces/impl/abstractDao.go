@@ -3,6 +3,8 @@ package impl
 import (
 	"fmt"
 
+	"gopkg.in/mgo.v2/bson"
+
 	"github.com/praveenk007/dexter/models"
 
 	"github.com/praveenk007/dexter/dao"
@@ -17,12 +19,8 @@ func NewAbstractDao(session *dao.Session) *AbstractDao {
 }
 
 func (abstractDao *AbstractDao) FetchById(id string) {
-	var results []models.BrokerConfig
+	var result models.BrokerConfig
 	collection := abstractDao.session.GetCollection("mintpro", "BrokerConfig")
-	collection.Find(nil).All(&results)
-	//fmt.Println(results[0].SessionDomain)
-	fmt.Println("=====")
-	fmt.Println(results[0])
-	fmt.Println("=====")
-
+	collection.Find(bson.M{"broker": id}).One(&result)
+	fmt.Println(result)
 }
