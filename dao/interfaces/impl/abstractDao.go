@@ -3,6 +3,8 @@ package impl
 import (
 	"fmt"
 
+	"github.com/praveenk007/dexter/models"
+
 	"github.com/praveenk007/dexter/dao"
 )
 
@@ -15,15 +17,12 @@ func NewAbstractDao(session *dao.Session) *AbstractDao {
 }
 
 func (abstractDao *AbstractDao) FetchById(id string) {
-	type result struct {
-		//Id     bson.ObjectId `bson:"_id,omitempty"`
-		Broker        string //`bson:"broker,omitempty"`
-		SessionDomain string `bson:"sessionDomain,omitempty"`
-	}
-	var results []result
+	var results []models.BrokerConfig
 	collection := abstractDao.session.GetCollection("mintpro", "BrokerConfig")
-	count, _ := collection.Count()
-	fmt.Printf("coll %d", count)
 	collection.Find(nil).All(&results)
-	fmt.Println(results[0].SessionDomain)
+	//fmt.Println(results[0].SessionDomain)
+	fmt.Println("=====")
+	fmt.Println(results[0])
+	fmt.Println("=====")
+
 }
