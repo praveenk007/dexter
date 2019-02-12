@@ -16,8 +16,9 @@ import (
 
 func main() {
 	fmt.Println("Starting app ...")
+	fmt.Println(viper.GetString("DB_HOST"))
 	bindEnvVariables()
-	session, error := dao.NewSession("mongodb://localhost:27017")
+	session, error := dao.NewSession("mongodb://pk.local:27017")
 	if error != nil {
 		fmt.Println(error)
 		fmt.Errorf("Error occurred when conn to db %s", error)
@@ -38,6 +39,7 @@ func main() {
 
 func bindEnvVariables() {
 	viper.BindEnv("ENV")
+	viper.BindEnv("DB_HOST")
 }
 
 func initConfig(env string) {
