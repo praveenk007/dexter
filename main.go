@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Starting app ...")
+	fmt.Println("Starting app ....")
 	fmt.Println(viper.GetString("DB_HOST"))
 	bindEnvVariables()
 	session, error := dao.NewSession("mongodb://pk.local:27017")
