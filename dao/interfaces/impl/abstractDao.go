@@ -1,11 +1,9 @@
 package impl
 
 import (
-	"fmt"
+	"encoding/json"
 
 	"gopkg.in/mgo.v2/bson"
-
-	"github.com/praveenk007/dexter/models"
 
 	"github.com/praveenk007/dexter/dao"
 )
@@ -18,9 +16,10 @@ func NewAbstractDao(session *dao.Session) *AbstractDao {
 	return &AbstractDao{session}
 }
 
-func (abstractDao *AbstractDao) FetchById(id string) {
-	var result models.BrokerConfig
-	collection := abstractDao.session.GetCollection("mintpro", "BrokerConfig")
-	collection.Find(bson.M{"broker": id}).One(&result)
-	fmt.Println(result)
+func (abstractDao *AbstractDao) FetchById(key string, value string, db string, collection string) *[]byte {
+	var result bson.M
+	collectionObject := abstractDao.session.GetCollection(db, collection)
+	collectionObject.Find(bson.M{key: value}).One(&result)
+	j, _ := json.Marshal(result)
+	return &j
 }

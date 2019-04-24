@@ -20,9 +20,10 @@ func NewConfigApi(session *dao.Session) *ConfigApi {
 	return &ConfigApi{session}
 }
 func (a *ConfigApi) GetConfig(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Go is cool!")
 	cService := getConfigService(a.session)
-	cService.GetConfig(mux.Vars(r)["id"], mux.Vars(r)["type"])
+	result := cService.GetConfig(mux.Vars(r)["id"], mux.Vars(r)["type"])
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, string(*result))
 }
 
 func getConfigService(session *dao.Session) interfaces.IConfigService {

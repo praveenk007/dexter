@@ -17,10 +17,10 @@ func NewConfigService(session *dao.Session) *ConfigServiceImpl {
 	return &ConfigServiceImpl{session}
 }
 
-func (cs *ConfigServiceImpl) GetConfig(id string, ctype string) {
+func (cs *ConfigServiceImpl) GetConfig(id string, ctype string) *[]byte {
 	fmt.Println("[getBrokerConfig]")
 	a := getDao(ctype)
-	getConfig(a, id, cs.session)
+	return getConfig(a, id, cs.session)
 
 }
 
@@ -31,6 +31,6 @@ func getDao(ctype string) interfaces.IConfigDao {
 	return nil
 }
 
-func getConfig(configDao interfaces.IConfigDao, id string, session *dao.Session) {
-	configDao.GetConfig(session, id)
+func getConfig(configDao interfaces.IConfigDao, id string, session *dao.Session) *[]byte {
+	return configDao.GetConfig(session, id)
 }
